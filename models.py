@@ -6,13 +6,13 @@ class Book():
 
     _ID = 1
 
-    def __init__(self, title, author, year, status='в наличии'):
-        self.id = self._ID
+    def __init__(self, title: str, author: str, year: int, status: str = 'в наличии') -> None:
+        self.id: int = self._ID
         self.__class__._ID += 1
-        self.title = title
-        self.author = author
-        self.year = year
-        self.status = status
+        self.title: str = title
+        self.author: str = author
+        self.year: int = year
+        self.status: str = status
 
     def __str__(self) -> str:
         return self.title
@@ -21,10 +21,10 @@ class Book():
 class Library():
     """Класс для создания библиотеки."""
 
-    def __init__(self):
-        self.books = []
+    def __init__(self) -> None:
+        self.books: list[Book] = []
 
-    def add_book(self, book):
+    def add_book(self, book: Book) -> bool:
         """Добавляет книгу в библиотеку."""
 
         if any(
@@ -41,7 +41,7 @@ class Library():
         self.books.append(book)
         return True
 
-    def remove_book(self, book_id):
+    def remove_book(self, book_id: int) -> bool:
         """Удаляет книгу из библиотеки по её ID."""
 
         for book in self.books:
@@ -53,10 +53,10 @@ class Library():
         print(f'Книга с ID {book_id} не найдена.')
         return False
 
-    def find_book(self, title=None, author=None, year=None):
+    def find_book(self, title: str | None = None, author: str | None = None, year: int | None = None) -> list[Book]:
         """Ищет книги в библиотеке по названию, автору и/или году."""
 
-        result = []
+        result: list[Book] = []
 
         for book in self.books:
             if (
@@ -87,7 +87,7 @@ class Library():
                 f'Статус: {book.status}'
             )
 
-    def change_status(self, book_id, status):
+    def change_status(self, book_id: int, status: str) -> bool:
         """Меняет статус книги по её ID."""
 
         if status not in ('в наличии', 'выдана'):
@@ -103,12 +103,12 @@ class Library():
         print(f'Книга с ID {book_id} не найдена.')
         return False
 
-    def save_to_file(self, filename):
+    def save_to_file(self, filename: str) -> None:
         """
         Сохраняет данные библиотеки в указанный JSON-файл.
         """
 
-        data = [
+        data: list[dict[str, str | int]] = [
             {
              'id': book.id,
              'title': book.title,
@@ -122,14 +122,14 @@ class Library():
         with open(filename, 'w', encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
 
-    def load_from_file(self, filename):
+    def load_from_file(self, filename: str) -> None:
         """
         Загружает данные библиотеки из указанного JSON-файла.
         """
 
         try:
             with open(filename, "r", encoding="utf-8") as file:
-                data = json.load(file)
+                data: list[dict[str, str | int]] = json.load(file)
                 self.books = [
                     Book(
                         title=item["title"],

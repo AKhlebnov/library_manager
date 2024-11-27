@@ -1,10 +1,10 @@
 from exceptions import BookError, InputError
 from models import Library, Book
 
-FILENAME = 'library.json'
+FILENAME: str = 'library.json'
 
 
-def display_menu():
+def display_menu() -> None:
     """Отображает меню выбора действий."""
 
     print("""
@@ -18,23 +18,23 @@ def display_menu():
     """)
 
 
-def add_book_interface(library):
+def add_book_interface(library: Library) -> None:
     """Интерфейс для добавления книги."""
 
-    title = input('Введите название книги: ').strip()
+    title: str = input('Введите название книги: ').strip()
 
     if not title:
         raise InputError('Название книги не может быть пустым.')
 
-    author = input('Введите автора книги: ').strip()
+    author: str = input('Введите автора книги: ').strip()
 
     if not author:
         raise InputError('Автор книги не может быть пустым.')
 
-    year = input('Введите год издания: ')
+    year: str = input('Введите год издания: ')
 
     try:
-        year = int(year)
+        year: int = int(year)
         if year < 1000 or year > 2100:
             raise InputError('Год издания должен быть в диапазоне 1000–2100.')
     except ValueError:
@@ -48,13 +48,13 @@ def add_book_interface(library):
         )
 
 
-def remove_book_interface(library):
+def remove_book_interface(library: Library) -> None:
     """Интерфейс для удаления книги."""
 
-    book_id = input('Введите ID книги для удаления: ')
+    book_id: str = input('Введите ID книги для удаления: ')
 
     try:
-        book_id = int(book_id)
+        book_id: int = int(book_id)
     except ValueError:
         raise InputError('ID должен быть числом.')
 
@@ -62,15 +62,15 @@ def remove_book_interface(library):
         raise BookError(f'Книга с ID {book_id} не найдена.')
 
 
-def find_book_interface(library):
+def find_book_interface(library: Library) -> None:
     """Интерфейс для поиска книги."""
 
-    title = input('Введите название книги (или оставьте пустым): ').strip()
-    author = input('Введите автора книги (или оставьте пустым): ').strip()
-    year = input('Введите год издания (или оставьте пустым): ')
+    title: str = input('Введите название книги (или оставьте пустым): ').strip()
+    author: str = input('Введите автора книги (или оставьте пустым): ').strip()
+    year: str = input('Введите год издания (или оставьте пустым): ')
 
     try:
-        year = int(year) if year else None
+        year: int = int(year) if year else None
     except ValueError:
         raise InputError('Год издания должен быть числом.')
 
@@ -83,17 +83,17 @@ def find_book_interface(library):
         print(book)
 
 
-def change_status_interface(library):
+def change_status_interface(library: Library) -> None:
     """Интерфейс для изменения статуса книги."""
 
-    book_id = input('Введите ID книги: ')
+    book_id: str = input('Введите ID книги: ')
 
     try:
-        book_id = int(book_id)
+        book_id : int = int(book_id)
     except ValueError:
         raise InputError('ID должен быть числом.')
 
-    status = input('Введите новый статус ("в наличии" или "выдана"): ').strip()
+    status: str = input('Введите новый статус ("в наличии" или "выдана"): ').strip()
 
     if status not in ('в наличии', 'выдана'):
         raise InputError('Статус может быть только "в наличии" или "выдана".')
@@ -102,10 +102,10 @@ def change_status_interface(library):
         raise BookError(f'Книга с ID {book_id} не найдена.')
 
 
-def main():
+def main() -> None:
     """Основной цикл программы."""
 
-    library = Library()
+    library: Library = Library()
 
     # Автозагрузка при запуске
     print('Загрузка данных библиотеки...')
@@ -114,7 +114,7 @@ def main():
     while True:
 
         display_menu()
-        choice = input('Выберите действие: ')
+        choice: str = input('Выберите действие: ')
 
         try:
             if choice == '1':
