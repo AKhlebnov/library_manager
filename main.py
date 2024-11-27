@@ -65,7 +65,9 @@ def remove_book_interface(library: Library) -> None:
 def find_book_interface(library: Library) -> None:
     """Интерфейс для поиска книги."""
 
-    title: str = input('Введите название книги (или оставьте пустым): ').strip()
+    title: str = input(
+        'Введите название книги (или оставьте пустым): '
+    ).strip()
     author: str = input('Введите автора книги (или оставьте пустым): ').strip()
     year: str = input('Введите год издания (или оставьте пустым): ')
 
@@ -89,11 +91,13 @@ def change_status_interface(library: Library) -> None:
     book_id: str = input('Введите ID книги: ')
 
     try:
-        book_id : int = int(book_id)
+        book_id: int = int(book_id)
     except ValueError:
         raise InputError('ID должен быть числом.')
 
-    status: str = input('Введите новый статус ("в наличии" или "выдана"): ').strip()
+    status: str = input(
+        'Введите новый статус ("в наличии" или "выдана"): '
+    ).strip()
 
     if status not in ('в наличии', 'выдана'):
         raise InputError('Статус может быть только "в наличии" или "выдана".')

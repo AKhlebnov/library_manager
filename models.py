@@ -6,7 +6,13 @@ class Book():
 
     _ID = 1
 
-    def __init__(self, title: str, author: str, year: int, status: str = 'в наличии') -> None:
+    def __init__(
+            self,
+            title: str,
+            author: str,
+            year: int,
+            status: str = 'в наличии'
+    ) -> None:
         self.id: int = self._ID
         self.__class__._ID += 1
         self.title: str = title
@@ -53,7 +59,12 @@ class Library():
         print(f'Книга с ID {book_id} не найдена.')
         return False
 
-    def find_book(self, title: str | None = None, author: str | None = None, year: int | None = None) -> list[Book]:
+    def find_book(
+            self,
+            title: str | None = None,
+            author: str | None = None,
+            year: int | None = None
+    ) -> list[Book]:
         """Ищет книги в библиотеке по названию, автору и/или году."""
 
         result: list[Book] = []
